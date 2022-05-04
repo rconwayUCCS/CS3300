@@ -1,6 +1,82 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Projects</h1>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'New Project', new_project_path, :class => 'btn btn-dark'%>
+          </li>
+        </ul>
+        <% if user_signed_in? %>
+          Logged in as  <strong><%= current_user.email %></strong>. 
+          <%= link_to 'Edit profile', edit_user_registration_path, :class => 'btn btn-dark' %> |
+          <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'btn btn-dark'  %>
+        <% else %>
+          <%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-dark'  %> |
+          <%= link_to "Login", new_user_session_path, :class => 'btn btn-dark'  %>
+        <% end %>
+      </div>
+    </nav>
+
+    <main role="main">
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <div class="container">
+          <h1 class="display-3">Welcome to Aeaea!</h1>
+          <p>I will turn you into a pig</p>
+          <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more »</a></p>
+        </div>
+      </div>
+
+      <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+        <% @projects.each do |project| %>
+          <div class="col-md-4">
+            <div class="card body">
+              <h5 class="card title"> <td><%= project.title %></td></h5>
+
+              <% if project.description.length > 100 %>
+                <p class="card text"><td><%= project.description.slice(0..100) ... %></td> <p>
+              <% else %>
+                <p class="card-text"><td><%= project.description%></td> <p>
+              <% end %>
+
+              <td><%= link_to 'Show', project %></td>
+
+              <% if user_signed_in? %>
+                <td><%= link_to 'Edit', edit_project_path(project) %></td>
+                <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <% end %>
+        <% end %>
+        
+        </div>
+
+        <hr>
+
+      </div> <!-- /container -->
+
+    </main>
+
+    <footer class="container">
+      <p>© Aeaea 700 b.c.e </p>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="../../assets/js/vendor/popper.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+  
+</body>
 
 <table>
   <thead>
