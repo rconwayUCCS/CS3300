@@ -1,5 +1,8 @@
-<h1>New Project</h1>
+<%= render 'NavBar', project: @project %>
+<br><br><br>
+<h1 style="text-align:center">New Project</h1>
 
+<div class ="text-muted text-center">
 <%= render 'form', project: @project %>
 
 <%= link_to 'Back', projects_path %>
